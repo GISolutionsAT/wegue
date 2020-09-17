@@ -18,7 +18,7 @@ describe('AppFooter.vue', () => {
 
     expect(comp.color).to.equal('red darken-3');
     expect(comp.footerTextLeft).to.equal('Powered by <a href="https://meggsimum.de/wegue/" target="_blank">Wegue WebGIS</a>');
-    expect(comp.footerTextRight).to.equal('meggsimum');
+    expect(comp.footerTextRight).to.equal('GISolutions');
     expect(comp.showCopyrightYear).to.equal(true);
   });
 });

@@ -32,7 +32,6 @@
         @select='changeMapViewToSelectedItems'
         @remove='removeFeatureFromSelectedItems'
       >
-      
       </multiselect>
       <template slot='selection' slot-scope='{ values, search, isOpen }'>
         <span
@@ -48,7 +47,6 @@
 </template>
 
 <script>
-// Import Data from src/data
 // import allStores from '../../../app/static/data/shops-dannstadt.json';
 import allStores from '../../../app/static/data/defis_wien.json';
 
@@ -106,7 +104,7 @@ export default {
   computed: {
     featuresForMultiselect () {
       return this.storeList.map(object => {
-        // console.log(object);
+        console.log(object);
         return {
           // name: `${object.properties.shop} - ${object.properties.name}`,
           name: `${object.properties.ADRESSE} - ${object.id}`,

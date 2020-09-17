@@ -1,6 +1,7 @@
 import TileLayer from 'ol/layer/Tile';
 import TileWmsSource from 'ol/source/TileWMS';
 import OsmSource from 'ol/source/OSM';
+import Stamen from 'ol/source/Stamen';
 import VectorTileLayer from 'ol/layer/VectorTile'
 import VectorTileSource from 'ol/source/VectorTile'
 import MvtFormat from 'ol/format/MVT'
@@ -73,6 +74,8 @@ export const LayerFactory = {
       return this.createXyzLayer(lConf);
     } else if (lConf.type === 'OSM') {
       return this.createOsmLayer(lConf);
+    } else if (lConf.type === 'STAMEN') {
+      return this.createStamenLayer(lConf);
     } else if (lConf.type === 'VECTOR') {
       return this.createVectorLayer(lConf);
     } else if (lConf.type === 'VECTORTILE') {
@@ -231,6 +234,27 @@ export const LayerFactory = {
       visible: lConf.visible,
       opacity: lConf.opacity,
       source: new OsmSource()
+    });
+
+    return layer;
+  },
+
+  /**
+   * Returns an OpenLayers STAMEN layer instance due to given config.
+   *
+   * @param  {Object} lConf  Layer config object
+   * @return {ol.layer.Tile} OL Stamen layer instance
+   */
+  createStamenLayer (lConf) {
+    const layer = new TileLayer({
+      name: lConf.name,
+      lid: lConf.lid,
+      displayInLayerList: lConf.displayInLayerList,
+      visible: lConf.visible,
+      opacity: lConf.opacity,
+      source: new Stamen({
+        layer: 'toner'
+      })
     });
 
     return layer;

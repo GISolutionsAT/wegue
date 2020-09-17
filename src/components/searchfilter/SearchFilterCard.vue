@@ -38,7 +38,7 @@
 
 <script>
 
-import searchFilterDataset from '../../../app/static/data/shops-dannstadt.json';
+import searchFilterDataset from '../../../app/static/data/defis_wien.json';
 
 import { WguEventBus } from '../../WguEventBus.js';
 import GeoJSON from 'ol/format/GeoJSON';
@@ -143,7 +143,7 @@ export default {
       searchFilterItems: searchFilterDataset.features,
       selectedItems: [],
       selectedItemsLayerID: 'selectedFeatures',
-      allItemsLayerID: 'Shops'
+      allItemsLayerID: 'Defis'
     };
   },
   created () {
@@ -157,7 +157,7 @@ export default {
       // defines a function that is specific for the dataset, use your own function
       return this.searchFilterItems.map(object => {
         return {
-          name: `${object.properties.shop} - ${object.properties.name}`,
+          name: `${object.properties.ADRESSE} - ${object.id}`,
           type: object.type,
           feature: object
         };
@@ -177,9 +177,9 @@ export default {
         layerDisplayingSelectedItems = new VectorLayer({ source: new VectorSource() });
         layerDisplayingSelectedItems.setProperties({
           lid: me.selectedItemsLayerID,
-          name: 'selected shops',
+          name: 'selected Defis',
           hoverable: true,
-          hoverAttribute: 'name'
+          hoverAttribute: 'ADRESSE'
         });
         me.map.addLayer(layerDisplayingSelectedItems);
       } else {

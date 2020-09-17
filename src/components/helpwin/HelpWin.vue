@@ -1,5 +1,4 @@
 <template>
-
   <v-card class="wgu-helpwin">
     <v-toolbar :color="color" class="" dark>
       <v-toolbar-side-icon><v-icon>{{ icon }}</v-icon></v-toolbar-side-icon>
@@ -22,7 +21,6 @@
         :href="infoLink" target="_blank">{{ infoLinkText }}</a>
     </v-card-actions>
   </v-card>
-
 </template>
 
 <script>
