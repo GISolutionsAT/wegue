@@ -20,14 +20,18 @@
     <!-- slot to inject components before the auto-generated buttons (by config) -->
     <slot name="wgu-tb-before-auto-buttons"></slot>
 
-    <template v-for="(tbButton, index) in tbButtons">
+    <template 
+      v-for="(tbButton, index) in tbButtons" 
+    >
       <component
         :is="tbButton.type" :key="index"
         :icon="tbButton.icon" :text="tbButton.text"
         :color="color"
         :dark="tbButton.dark"
+        v-on:filterupdatedtomain="emitPassFilterItems"
       />
     </template>
+    <!-- <wgu-searchfilter-btn v-on:filterupdatedtomain="emitPassFilterItems"></wgu-searchfilter-btn> -->
 
     <!-- slot to inject components after the auto-generated buttons (by config) -->
     <slot name="wgu-tb-after-auto-buttons"></slot>
@@ -139,6 +143,12 @@ export default {
         }
       }
       return moduleWins;
+    },
+    emitPassFilterItems (filtedItemsfromBtn) {
+      console.log('emitpass ');
+      console.log(filtedItemsfromBtn);
+      let me = this;
+      me.$emit('passingfilteditems', filtedItemsfromBtn);
     }
   }
 }

@@ -1,6 +1,7 @@
 <template>
   <v-card
     class='card--flex-toolbar'
+    min-width="auto"
     width='350px'
     style='position: relative; overflow: hidden;'
   >
@@ -98,6 +99,7 @@ function fitViewofMaptoExtend (extend, map) {
 }
 
 function emitSelectedItemEvent (itemsToEmit, vue) {
+  console.log('emitSelected function ruft...' + itemsToEmit);
   vue.$emit('searchFilterItemsChanged', itemsToEmit);
 }
 
@@ -157,7 +159,7 @@ export default {
       // defines a function that is specific for the dataset, use your own function
       return this.searchFilterItems.map(object => {
         return {
-          name: `${object.properties.ADRESSE} - ${object.id}`,
+          name: `${object.properties.ADRESSE} - ${object.properties.OBJECTID}`,
           type: object.type,
           feature: object
         };
@@ -192,6 +194,7 @@ export default {
 
       fitViewofMaptoExtend(layerDisplayingSelectedItems.getSource().getExtent(), me.map);
       emitSelectedItemEvent(olpreparedSelectedItems, me);
+      // console.log(olpreparedSelectedItems);
     },
     removeItemAndFitMaptoNewExtend (actualChoosenItem, id) {
       let me = this;

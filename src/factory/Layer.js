@@ -2,6 +2,8 @@ import TileLayer from 'ol/layer/Tile';
 import TileWmsSource from 'ol/source/TileWMS';
 import OsmSource from 'ol/source/OSM';
 import Stamen from 'ol/source/Stamen';
+import Cluster from 'ol/source/Cluster';
+import { Stroke, Fill, Style, Text, Circle as CircleStyle } from 'ol/style';
 import VectorTileLayer from 'ol/layer/VectorTile'
 import VectorTileSource from 'ol/source/VectorTile'
 import MvtFormat from 'ol/format/MVT'
@@ -18,6 +20,47 @@ import {bbox as bboxStrategy} from 'ol/loadingstrategy';
 import { OlStyleFactory } from './OlStyle'
 import {applyTransform} from 'ol/extent';
 import {getTransform} from 'ol/proj';
+
+// Cluster layer styling functions
+function styleFunction (feature) {
+  let style;
+  let size = feature.get('features').length;
+  if (size > 1) {
+    style = new Style({
+      image: new CircleStyle({
+        radius: 25,
+        fill: new Fill({
+          color: [33, 128, 121, 0.6]
+        })
+      }),
+      text: new Text({
+        text: size.toString(),
+        fill: new Fill({
+          color: '#fff'
+        }),
+        stroke: new Stroke({
+          color: 'rgba(0, 0, 0, 0.5)',
+          width: 3
+        })
+      })
+    });
+  } else {
+    // Single feature style
+    style = new Style({
+      image: new CircleStyle({
+        radius: 4,
+        stroke: new Stroke({
+          color: [33, 128, 121],
+          width: 2
+        }),
+        fill: new Fill({
+          color: '#fff'
+        })
+      })
+    })
+  }
+  return style;
+};
 
 /**
  * Factory, which creates OpenLayers layer instances according to a given config
@@ -78,6 +121,8 @@ export const LayerFactory = {
       return this.createStamenLayer(lConf);
     } else if (lConf.type === 'VECTOR') {
       return this.createVectorLayer(lConf);
+    } else if (lConf.type === 'VECTORCLUSTER') {
+      return this.createVectorClusterLayer(lConf);
     } else if (lConf.type === 'VECTORTILE') {
       return this.createVectorTileLayer(lConf);
     } else {
@@ -253,11 +298,43 @@ export const LayerFactory = {
       visible: lConf.visible,
       opacity: lConf.opacity,
       source: new Stamen({
-        layer: 'toner'
+        layer: 'toner'// can be choosen
       })
     });
 
     return layer;
+  },
+
+  /**
+   * Returns an OpenLayers vector layer instance due to given config.
+   *
+   * @param  {Object} lConf  Layer config object
+   * @return {ol.source.Cluster} OL vector layer instance
+   */
+  createVectorClusterLayer (lConf) {
+    let vectorSource = new VectorSource({
+      url: lConf.url,
+      format: new this.formatMapping[lConf.format](lConf.formatConfig),
+      attributions: lConf.attributions
+    });
+    let clusterSource = new Cluster({
+      distance: 50,
+      source: vectorSource
+    });
+    const vectorClusterLayer = new VectorLayer({
+      name: lConf.name,
+      lid: lConf.lid,
+      displayInLayerList: lConf.displayInLayerList,
+      extent: lConf.extent,
+      visible: lConf.visible,
+      opacity: lConf.opacity,
+      source: clusterSource,
+      style: styleFunction,
+      hoverable: lConf.hoverable,
+      hoverAttribute: lConf.hoverAttribute
+    });
+
+    return vectorClusterLayer;
   },
 
   /**

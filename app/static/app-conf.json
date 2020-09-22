@@ -21,12 +21,13 @@
 
   "mapLayers": [
     {
-      "type": "VECTOR",
+      "type": "VECTORCLUSTER",
       "lid": "Defis",
       "name": "Defibrillatoren Standorte Wien",
       "url": "./static/data/defis_wien.json",
       "format": "GeoJSON",
       "visible": true,
+      "attributions": "Defibrillatoren Standorte Wien",
       "selectable": true,
       "hoverable": true,
       "hoverAttribute": "ADRESSE",
