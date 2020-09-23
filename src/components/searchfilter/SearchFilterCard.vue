@@ -52,11 +52,11 @@ import Multiselect from 'vue-multiselect';
 let featureStyles = {
   'Point': new Style({
     image: new CircleStyle({
-      radius: 5,
+      radius: 7,
       fill: new Fill({
-        color: 'rgba(255, 255, 0, 0.5)'
+        color: 'rgba(255, 255, 0, 0.1)'
       }),
-      stroke: new Stroke({ color: 'red', width: 2 })
+      stroke: new Stroke({ color: '#41B883', width: 4 })
     })
   }),
   'Polygon': new Style({
@@ -65,7 +65,7 @@ let featureStyles = {
       width: 1
     }),
     fill: new Fill({
-      color: 'rgba(173, 0, 139, 0.5)'
+      color: '#fff'
     })
   })
 };
@@ -178,7 +178,7 @@ export default {
         layerDisplayingSelectedItems = new VectorLayer({ source: new VectorSource() });
         layerDisplayingSelectedItems.setProperties({
           lid: me.selectedItemsLayerID,
-          name: 'selected Defis',
+          name: 'Ausgewählte Defibrillatoren',
           hoverable: true,
           hoverAttribute: 'STRASSE'
         });

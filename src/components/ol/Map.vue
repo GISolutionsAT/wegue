@@ -249,6 +249,7 @@ export default {
         }
         return layer.get('hoverable');
       }});
+      // console.log(features);
       if (!features || features.length === 0 || !hoverAttr) {
         hoverAttr = null;
         overlayEl.innerHTML = null;
@@ -259,8 +260,6 @@ export default {
       var attr = feature.get(hoverAttr);
       overlayEl.innerHTML = attr;
       me.overlay.setPosition(event.coordinate);
-      console.log('Map.vue');
-      console.log(hoverAttr);
     }
   }
 

@@ -1,5 +1,5 @@
 {
-  "title": "Händlersuche",
+  "title": "Defibrillatoren Standorte in Wien",
 
   "baseColor": "#218079",
 
@@ -7,8 +7,8 @@
   "footerTextRight": "GISolutions",
   "showCopyrightYear": true,
 
-  "mapZoom": 2,
-  "mapCenter": [0, 0],
+  "mapZoom": 12,
+  "mapCenter": [1823293.816, 6142270.070],
 
   "permalink": {
     "location": "hash",
@@ -21,7 +21,7 @@
 
   "mapLayers": [
     {
-      "type": "VECTORCLUSTER",
+      "type": "VECTOR",
       "lid": "Defis",
       "name": "Defibrillatoren Standorte Wien",
       "url": "./static/data/defis_wien.json",
@@ -33,40 +33,10 @@
       "hoverAttribute": "STRASSE",
       "style": {
         "radius": 4,
-        "strokeColor": "#008dc5",
-        "strokeWidth": 2,
+        "strokeColor": "teal",
+        "strokeWidth": 2.5,
         "fillColor": "#fff"
       }
-    },
-
-    {
-      "type": "VECTOR",
-      "lid": "earthquakes",
-      "name": "Earthquakes 2012 (Mag 5)",
-      "url": "./static/data/2012_Earthquakes_Mag5.kml",
-      "formatConfig": {
-        "extractStyles": false
-      },
-      "format": "KML",
-      "visible": true,
-      "attributions": "U.S. Geological Survey",
-      "selectable": true,
-      "style": {
-        "iconUrl": "./static/icon/circle.svg",
-        "scale": 4,
-        "anchor": [0.5, 37],
-        "anchorXUnits": "fraction",
-        "anchorYUnits": "pixels"
-      }
-    },
-
-    {
-      "type": "OSM",
-      "lid": "osm-bg",
-      "name": "OSM",
-      "isBaseLayer": false,
-      "visible": false,
-      "displayInLayerList": true
     },
 
     {
