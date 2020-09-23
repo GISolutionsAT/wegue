@@ -18,7 +18,7 @@ export default {
   props: {
     color: {type: String, required: false, default: 'red darken-3'},
     footerTextLeft: {type: String, required: false, default: 'Powered by <a href="https://meggsimum.de/wegue/" target="_blank">Wegue WebGIS</a>'},
-    footerTextRight: {type: String, required: false, default: 'meggsimum'},
+    footerTextRight: {type: String, required: false, default: 'GISolutions'},
     showCopyrightYear: {type: Boolean, required: false, default: true}
   }
 }

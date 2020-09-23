@@ -15,7 +15,7 @@ import Point from 'ol/geom/Point'
 import Feature from 'ol/Feature';
 import {Vector as VectorLayer} from 'ol/layer'
 import {Vector as VectorSource} from 'ol/source'
-import { Fill, Style, Text } from 'ol/style';
+import { Fill, Style, Text, Stroke } from 'ol/style';
 
 import { WguEventBus } from '../../WguEventBus'
 
@@ -23,9 +23,13 @@ import { WguEventBus } from '../../WguEventBus'
 const geolocationMarker = new Style({
   text: new Text({
     text: 'person_pin_circle',
-    font: 'normal 30px Material Icons',
+    font: 'normal 25px Material Icons',
+    stroke: new Stroke({
+      color: '#fff',
+      width: 3
+    }),
     fill: new Fill({
-      color: 'blue'
+      color: '#c53800'
     })
   })
 });
@@ -37,7 +41,7 @@ function createAndRemoveExistingLayer (layers, layerId) {
   let layer = new VectorLayer({
     source: new VectorSource(),
     style: geolocationMarker});
-  layer.setProperties({lid: layerId, name: 'actual gps-position'});
+  layer.setProperties({lid: layerId, name: 'Meine GPS Position'});
   return layer;
 };
 

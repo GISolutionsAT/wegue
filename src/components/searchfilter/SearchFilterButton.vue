@@ -17,6 +17,7 @@
 
 <script>
 import SearchFilterCard from './SearchFilterCard'
+import { WguEventBus } from '../../WguEventBus'
 
 export default {
   name: 'wgu-searchfilter-btn',
@@ -31,14 +32,18 @@ export default {
       selectedFeatures: []
     }
   },
+  created () {
+    var me = this;
+    WguEventBus.$on('ol-map-mounted', olMap => {
+      me.map = olMap;
+    });
+  },
   methods: {
     updateBadgeCounter (selectedObjects) {
-      this.selectedFeatures = selectedObjects;
+      let me = this;
+      me.selectedFeatures = selectedObjects;
+      me.$emit('filterupdatedtomain', selectedObjects);
     }
   }
 }
 </script>
-
-<style>
-
-</style>

@@ -1,6 +1,7 @@
 <template>
   <v-card
     class='card--flex-toolbar'
+    min-width="auto"
     width='350px'
     style='position: relative; overflow: hidden;'
   >
@@ -38,7 +39,7 @@
 
 <script>
 
-import searchFilterDataset from '../../../app/static/data/shops-dannstadt.json';
+import searchFilterDataset from '../../../app/static/data/defis_wien.json';
 
 import { WguEventBus } from '../../WguEventBus.js';
 import GeoJSON from 'ol/format/GeoJSON';
@@ -51,11 +52,11 @@ import Multiselect from 'vue-multiselect';
 let featureStyles = {
   'Point': new Style({
     image: new CircleStyle({
-      radius: 5,
+      radius: 7,
       fill: new Fill({
-        color: 'rgba(255, 255, 0, 0.5)'
+        color: 'rgba(255, 255, 0, 0.1)'
       }),
-      stroke: new Stroke({ color: 'red', width: 2 })
+      stroke: new Stroke({ color: '#41B883', width: 4 })
     })
   }),
   'Polygon': new Style({
@@ -64,7 +65,7 @@ let featureStyles = {
       width: 1
     }),
     fill: new Fill({
-      color: 'rgba(173, 0, 139, 0.5)'
+      color: '#fff'
     })
   })
 };
@@ -143,7 +144,7 @@ export default {
       searchFilterItems: searchFilterDataset.features,
       selectedItems: [],
       selectedItemsLayerID: 'selectedFeatures',
-      allItemsLayerID: 'Shops'
+      allItemsLayerID: 'Defis'
     };
   },
   created () {
@@ -157,7 +158,7 @@ export default {
       // defines a function that is specific for the dataset, use your own function
       return this.searchFilterItems.map(object => {
         return {
-          name: `${object.properties.shop} - ${object.properties.name}`,
+          name: `${object.properties.STRASSE} - ${object.properties.OBJECTID}`,
           type: object.type,
           feature: object
         };
@@ -177,9 +178,9 @@ export default {
         layerDisplayingSelectedItems = new VectorLayer({ source: new VectorSource() });
         layerDisplayingSelectedItems.setProperties({
           lid: me.selectedItemsLayerID,
-          name: 'selected shops',
+          name: 'Ausgewählte Defibrillatoren',
           hoverable: true,
-          hoverAttribute: 'name'
+          hoverAttribute: 'STRASSE'
         });
         me.map.addLayer(layerDisplayingSelectedItems);
       } else {

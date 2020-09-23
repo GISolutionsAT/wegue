@@ -3,7 +3,7 @@
 
     <slot name="wgu-app-begin" />
 
-    <wgu-app-header :color="baseColor">
+    <wgu-app-header :color="baseColor" v-on:passingfilteditems="updateOverlays">
       <!-- forward the slots of AppHeader -->
       <slot name="wgu-tb-start" slot="wgu-tb-start" />
       <slot name="wgu-tb-after-title" slot="wgu-tb-after-title" />
@@ -19,6 +19,12 @@
     <slot name="wgu-before-content" />
 
     <v-content>
+      <div 
+        id="overlay" 
+        v-for="olItem in selectedFeatures" 
+        v-bind:key='olItem.values_.OBJECTID'>
+          <map-overlay v-bind:feature="olItem"></map-overlay>
+      </div>
       <v-container id="ol-map-container" fluid fill-height style="padding: 0">
          <wgu-map :color="baseColor" />
          <!-- layer loading indicator -->
@@ -63,6 +69,7 @@
   import LayerListWin from '../src/components/layerlist/LayerListWin'
   import InfoClickWin from '../src/components/infoclick/InfoClickWin'
   import MapLoadingStatus from '../src/components/progress/MapLoadingStatus'
+  import MapOverlay from '../src/components/overlay/MapOverlay'
 
   export default {
     name: 'wgu-app-tpl',
@@ -74,7 +81,8 @@
       'wgu-measuretool-win': MeasureWin,
       'wgu-layerlist-win': LayerListWin,
       'wgu-infoclick-win': InfoClickWin,
-      'wgu-maploading-status': MapLoadingStatus
+      'wgu-maploading-status': MapLoadingStatus,
+      'map-overlay': MapOverlay
     },
     data () {
       return {
@@ -83,7 +91,8 @@
         footerTextLeft: Vue.prototype.$appConfig.footerTextLeft,
         footerTextRight: Vue.prototype.$appConfig.footerTextRight,
         showCopyrightYear: Vue.prototype.$appConfig.showCopyrightYear,
-        baseColor: Vue.prototype.$appConfig.baseColor
+        baseColor: Vue.prototype.$appConfig.baseColor,
+        selectedFeatures: []
       }
     },
     mounted () {
@@ -126,6 +135,28 @@
           }
         }
         return moduleWins;
+      },
+
+      updateOverlays (featuresToOverlay) {
+        // remove the previous elements
+        // console.log('updateOverlays...');
+        // console.log(featuresToOverlay);
+        let me = this;
+        if (featuresToOverlay.length === 0) {
+          me.$map.getOverlays().clear();
+        } else if (featuresToOverlay.length < me.$map.getOverlays().getLength()) { // remove one feature
+          me.$map.getOverlays().forEach(function (feature) {
+            let overlayFeature = feature;
+            featuresToOverlay.forEach(function (feat) {
+              if (overlayFeature.getId() !== null) {
+                if (feat.feature.properties.OBJECTID !== overlayFeature.getId()) {
+                  me.$map.removeOverlay(overlayFeature);
+                }
+              }
+            });
+          });
+        }
+        this.selectedFeatures = featuresToOverlay;
       }
     }
   }
