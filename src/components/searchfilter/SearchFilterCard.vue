@@ -99,7 +99,6 @@ function fitViewofMaptoExtend (extend, map) {
 }
 
 function emitSelectedItemEvent (itemsToEmit, vue) {
-  console.log('emitSelected function ruft...' + itemsToEmit);
   vue.$emit('searchFilterItemsChanged', itemsToEmit);
 }
 
@@ -159,7 +158,7 @@ export default {
       // defines a function that is specific for the dataset, use your own function
       return this.searchFilterItems.map(object => {
         return {
-          name: `${object.properties.ADRESSE} - ${object.properties.OBJECTID}`,
+          name: `${object.properties.STRASSE} - ${object.properties.OBJECTID}`,
           type: object.type,
           feature: object
         };
@@ -181,7 +180,7 @@ export default {
           lid: me.selectedItemsLayerID,
           name: 'selected Defis',
           hoverable: true,
-          hoverAttribute: 'ADRESSE'
+          hoverAttribute: 'STRASSE'
         });
         me.map.addLayer(layerDisplayingSelectedItems);
       } else {
@@ -194,7 +193,6 @@ export default {
 
       fitViewofMaptoExtend(layerDisplayingSelectedItems.getSource().getExtent(), me.map);
       emitSelectedItemEvent(olpreparedSelectedItems, me);
-      // console.log(olpreparedSelectedItems);
     },
     removeItemAndFitMaptoNewExtend (actualChoosenItem, id) {
       let me = this;

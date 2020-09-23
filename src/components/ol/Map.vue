@@ -259,6 +259,8 @@ export default {
       var attr = feature.get(hoverAttr);
       overlayEl.innerHTML = attr;
       me.overlay.setPosition(event.coordinate);
+      console.log('Map.vue');
+      console.log(hoverAttr);
     }
   }
 

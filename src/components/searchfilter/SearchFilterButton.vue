@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     updateBadgeCounter (selectedObjects) {
-      console.log('updateBadgeCounter  searchbutton' + selectedObjects);
       let me = this;
       me.selectedFeatures = selectedObjects;
       me.$emit('filterupdatedtomain', selectedObjects);

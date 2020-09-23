@@ -30,7 +30,7 @@
       "attributions": "Defibrillatoren Standorte Wien",
       "selectable": true,
       "hoverable": true,
-      "hoverAttribute": "ADRESSE",
+      "hoverAttribute": "STRASSE",
       "style": {
         "radius": 4,
         "strokeColor": "#008dc5",

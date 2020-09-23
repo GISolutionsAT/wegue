@@ -139,8 +139,8 @@
 
       updateOverlays (featuresToOverlay) {
         // remove the previous elements
-        console.log('updateOverlays...');
-        console.log(featuresToOverlay);
+        // console.log('updateOverlays...');
+        // console.log(featuresToOverlay);
         let me = this;
         if (featuresToOverlay.length === 0) {
           me.$map.getOverlays().clear();
